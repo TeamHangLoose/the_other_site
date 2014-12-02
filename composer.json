@@ -1,21 +1,26 @@
+
 {
-    "name": "2ends skeleton",
+    "name": "zendframework/skeleton-application",
     "description": "Skeleton Application for ZF2",
-    "homepage": "http://framework.zend.com/",
-    "keywords": ["framework","zf2","skeleton"],
-    "license": "MIT",
-    "authors": [
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "repositories": [
         {
-            "name": "Jhon Mike Soares",
-            "email": "jhonmike@hotmail.com.br",
-            "homepage": "http://www.jhonmike.com.br",
-            "role": "Developer"
+            "type": "vcs",
+            "url": "https://github.com/mwillbanks/ZfcTwitterBootstrap"
         }
     ],
+    "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.3.3",
-        "2ends/zf2-base": "dev-master",
-        "2ends/zf2-acl": "dev-master",
-        "2ends/zf2-user": "dev-master"
+        "zendframework/zendframework": "2.3.*",
+        "zendframework/zend-developer-tools": "dev-master",
+        "doctrine/doctrine-orm-module": "0.7.*",
+        "zf-commons/zfc-user": "0.1.*",
+        "zf-commons/zfc-user-doctrine-orm": "0.1.*",
+        "bjyoungblood/bjy-authorize": "1.2.*"
     }
 }
