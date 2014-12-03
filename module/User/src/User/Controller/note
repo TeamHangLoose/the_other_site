@@ -1,0 +1,61 @@
+
+
+Here's what I did in order to overload UserController from ZfcUser:
+
+    Create my own module (ZfcUserExt) and new controller (UserController) extending the ZfcUser\Controller\UserController;
+    Just create the actions you want to overload, say registerAction;
+    In module.config.php, make your new controller ('ZfcUserExt\Controller\UserController') invokable, and overload the zfcuser child_routes 'register' to call the new controller;
+    Create a copy of the register view script under view\zfc-user-ext\user\;
+
+Here're some of the code changes I have:
+
+//module.config.php
+
+    'view_manager' => array
+    (
+        'template_path_stack' => array
+        (
+            'zfc-user-ext-views' => __DIR__ . '/../view',
+        ),
+    ),
+
+    'controllers' => array
+    (
+        'invokables' => array
+        (
+            'zfcuserext' => 'ZfcUserExt\Controller\UserController',
+        ),
+    ),
+
+
+    'router' => array
+    (
+        'routes' => array
+        (
+            'zfcuser' => array
+            (
+                'options' => array
+                (
+                    'route' => '/account',
+                    'defaults' => array
+                    (
+                        'controller' => 'zfcuserext',
+                    ),
+                ),
+                'child_routes' => array
+                (
+                    'register' => array
+                    (
+                        'options' => array
+                        (
+                            'defaults' => array
+                            (
+                                'controller' => 'zfcuserext',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+
