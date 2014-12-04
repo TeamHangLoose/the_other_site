@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/DATA/master/the_other_site/module/User/view/error/index.phtml</file>
             <file>file:/C:/DATA/master/the_other_site/module/User/view/zfc-user/user/login.phtml</file>
             <file>file:/C:/DATA/master/the_other_site/module/User/config/module.config.php</file>
@@ -11,6 +12,14 @@
             <file>file:/C:/DATA/master/the_other_site/module/User/src/User/Controller/note</file>
             <file>file:/C:/DATA/master/the_other_site/module/User/view/zfc-user/user/register.phtml</file>
             <file>file:/C:/DATA/master/the_other_site/module/User/src/User/Controller/UserController.php</file>
+=======
+            <file>file:/C:/Users/michaelrohr/Documents/GitHub/the_other_site/README.md</file>
+            <file>file:/C:/Users/michaelrohr/Documents/GitHub/the_other_site/config/autoload/local.php</file>
+            <file>file:/C:/Users/michaelrohr/Documents/GitHub/the_other_site/config/autoload/global.php</file>
+            <file>file:/C:/Users/michaelrohr/Documents/GitHub/the_other_site/config/autoload/doctrineconnection.local.php</file>
+            <file>file:/C:/Users/michaelrohr/Documents/GitHub/the_other_site/config/application.config.php</file>
+            <file>file:/C:/Users/michaelrohr/Documents/GitHub/the_other_site/config/autoload/zfcuser.global.php</file>
+>>>>>>> origin/dev
         </group>
     </open-files>
 </project-private>
