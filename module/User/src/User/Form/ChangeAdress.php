@@ -2,20 +2,17 @@
 
 namespace User\Form;
 
-
 use ZfcBase\Form\ProvidesEventsForm;
 use ZfcUser\Options\AuthenticationOptionsInterface;
 
+class ChangeAdress extends ProvidesEventsForm {
 
-class ChangeAdress extends ProvidesEventsForm
-{
     /**
      * @var AuthenticationOptionsInterface
      */
     protected $authOptions;
 
-    public function __construct($name, AuthenticationOptionsInterface $options)
-    {
+    public function __construct($name, AuthenticationOptionsInterface $options) {
         $this->setAuthenticationOptions($options);
         parent::__construct($name);
 
@@ -40,22 +37,32 @@ class ChangeAdress extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'name' => 'newCredential',
+            'name' => 'newStreet',
             'options' => array(
-                'label' => 'New Password',
+                'label' => 'New Street',
             ),
             'attributes' => array(
-                'type' => 'password',
+                'type' => 'text',
             ),
         ));
 
         $this->add(array(
-            'name' => 'newCredentialVerify',
+            'name' => 'newPlz',
             'options' => array(
-                'label' => 'Verify New Password',
+                'label' => 'New Plz',
             ),
             'attributes' => array(
-                'type' => 'password',
+                'type' => 'text',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'newVillage',
+            'options' => array(
+                'label' => 'New Village',
+            ),
+            'attributes' => array(
+                'type' => 'text',
             ),
         ));
 
@@ -63,7 +70,7 @@ class ChangeAdress extends ProvidesEventsForm
             'name' => 'submit',
             'attributes' => array(
                 'value' => 'Submit',
-                'type'  => 'submit'
+                'type' => 'submit'
             ),
         ));
 
@@ -76,8 +83,7 @@ class ChangeAdress extends ProvidesEventsForm
      * @param AuthenticationOptionsInterface $authOptions
      * @return Login
      */
-    public function setAuthenticationOptions(AuthenticationOptionsInterface $authOptions)
-    {
+    public function setAuthenticationOptions(AuthenticationOptionsInterface $authOptions) {
         $this->authOptions = $authOptions;
         return $this;
     }
@@ -87,8 +93,8 @@ class ChangeAdress extends ProvidesEventsForm
      *
      * @return AuthenticationOptionsInterface
      */
-    public function getAuthenticationOptions()
-    {
+    public function getAuthenticationOptions() {
         return $this->authOptions;
     }
+
 }

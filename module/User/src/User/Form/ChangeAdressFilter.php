@@ -5,13 +5,12 @@ namespace User\Form;
 use Zend\InputFilter\InputFilter;
 use ZfcUser\Options\AuthenticationOptionsInterface;
 
-class ChangeAdressFilter extends InputFilter
-{
-    public function __construct(AuthenticationOptionsInterface $options)
-    {
+class ChangeAdressFilter extends InputFilter {
+
+    public function __construct(AuthenticationOptionsInterface $options) {
         $identityParams = array(
-            'name'       => 'identity',
-            'required'   => true,
+            'name' => 'identity',
+            'required' => true,
             'validators' => array()
         );
 
@@ -24,57 +23,65 @@ class ChangeAdressFilter extends InputFilter
         $this->add($identityParams);
 
         $this->add(array(
-            'name'       => 'credential',
-            'required'   => true,
+            'name' => 'credential',
+            'required' => true,
             'validators' => array(
                 array(
-                    'name'    => 'StringLength',
+                    'name' => 'StringLength',
                     'options' => array(
                         'min' => 6,
                     ),
                 ),
             ),
-            'filters'   => array(
+            'filters' => array(
                 array('name' => 'StringTrim'),
             ),
         ));
 
         $this->add(array(
-            'name'       => 'newCredential',
-            'required'   => true,
+            'name' => 'newStreet',
+            'required' => true,
             'validators' => array(
                 array(
-                    'name'    => 'StringLength',
+                    'name' => 'StringLength',
                     'options' => array(
-                        'min' => 6,
+                        'min' => 3,
+                        'max' => 255,
                     ),
                 ),
             ),
-            'filters'   => array(
+            'filters' => array(
                 array('name' => 'StringTrim'),
             ),
         ));
 
         $this->add(array(
-            'name'       => 'newCredentialVerify',
-            'required'   => true,
+            'name' => 'newPlz',
+            'required' => true,
             'validators' => array(
                 array(
-                    'name'    => 'StringLength',
+                    'name' => 'StringLength',
                     'options' => array(
-                        'min' => 6,
+                        'min' => 4,
+                        'max' => 6,
                     ),
                 ),
-                array(
-                    'name' => 'identical',
-                    'options' => array(
-                        'token' => 'newCredential'
-                    )
-                ),
             ),
-            'filters'   => array(
-                array('name' => 'StringTrim'),
+        ));
+
+
+        $this->add(array(
+            'name' => 'newVillage',
+            'required' => true,
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'max' => 50,
+                    ),
+                ),
             ),
         ));
     }
+
 }

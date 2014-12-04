@@ -47,9 +47,9 @@ class Module {
                 'ZfcUser\Form\Register', 'init', function($e) {
             /* @var $form \ZfcUser\Form\Register */
             $form = $e->getTarget();
-            
-  
-            
+
+
+
             $form->add(
                     array(
                         'name' => 'street',
@@ -106,19 +106,16 @@ class Module {
 //            /*$user = $e->getParam('user');*/
 //        });
     }
-    
-     public function getServiceConfig()
-    {
+
+    public function getServiceConfig() {
         return array(
-              
             'invokables' => array(
                 //'ZfcUser\Authentication\Adapter\Db' => 'ZfcUser\Authentication\Adapter\Db',
                 //'ZfcUser\Authentication\Storage\Db' => 'ZfcUser\Authentication\Storage\Db',
                 //'ZfcUser\Form\Login'                => 'ZfcUser\Form\Login',
-                'zfcuser_user_service'              => 'User\Service\User',
-                //'zfcuser_register_form_hydrator'    => 'Zend\Stdlib\Hydrator\ClassMethods',
+                'zfcuser_user_service' => 'User\Service\User',
+            //'zfcuser_register_form_hydrator'    => 'Zend\Stdlib\Hydrator\ClassMethods',
             ),
-
             'factories' => array(
                 'zfcuser_change_adress_form' => function ($sm) {
                     $options = $sm->get('zfcuser_module_options');
@@ -126,7 +123,6 @@ class Module {
                     $form->setInputFilter(new Form\ChangeAdressFilter($options));
                     return $form;
                 },
-
             ),
         );
     }
