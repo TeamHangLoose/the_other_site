@@ -63,6 +63,12 @@ class UserController extends \ZfcUser\Controller\UserController {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
+      
+        $r = "";
+        foreach ($_REQUEST as $key => $value){
+         $r = $r.$key.'  --> '.$value.'<br>';   
+        }
+        echo $r;
 
         $form = $this->getChangeAvatarForm();
         $prg = $this->prg(static::ROUTE_CHANGEAVATAR);

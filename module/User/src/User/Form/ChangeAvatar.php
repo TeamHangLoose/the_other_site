@@ -39,14 +39,15 @@ class ChangeAvatar extends ProvidesEventsForm {
             'name' => 'fileToUpload',
             'attributes' => array(
                 'value' => 'uploadFile',
-                'type' => 'file'
+                'type' => 'file',
+                'id'=>'fileToUpload'
             ),
         ));
 
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'value' => 'Submit',
+                'value' => 'Upload Image',
                 'type' => 'submit'
             ),
         ));
