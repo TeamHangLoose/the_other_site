@@ -48,6 +48,26 @@ class User implements UserInterface, ProviderInterface
      * @ORM\Column(type="string", length=128)
      */
     protected $password;
+    
+    
+        /**
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    protected $street;
+    
+        /**
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    protected $plz;
+    
+    
+        /**
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    protected $village;
 
     /**
      * @var int
@@ -181,6 +201,33 @@ class User implements UserInterface, ProviderInterface
     {
         $this->password = $password;
     }
+    
+    
+    function getStreet() {
+        return $this->street;
+    }
+
+    function getPlz() {
+        return $this->plz;
+    }
+
+    function getVillage() {
+        return $this->village;
+    }
+
+    function setStreet($street) {
+        $this->street = $street;
+    }
+
+    function setPlz($plz) {
+        $this->plz = $plz;
+    }
+
+    function setVillage($village) {
+        $this->village = $village;
+    }
+
+        
 
     /**
      * Get state.
