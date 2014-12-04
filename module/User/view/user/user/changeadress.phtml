@@ -9,11 +9,9 @@
 <?php endif; ?>
 <?php
 $form = $this->changeAdressForm;
-
 $form->prepare();
 $form->setAttribute('action', $this->url('change-adress'));
 $form->setAttribute('method', 'post');
-
 $emailElement = $form->get('identity');
 $emailElement->setValue($this->zfcUserIdentity()->getEmail());
 

@@ -66,6 +66,7 @@ return array(
                 array('route' => 'zfcuser/changeemail', 'roles' => array('user')),
                 array('route' => 'zfcuser/changepassword', 'roles' => array('user')),
                 array('route' => 'change-adress', 'roles' => array('user')),
+                array('route' => 'change-avatar', 'roles' => array('user')),
                 // Below is the default index action used by the ZendSkeletonApplication
                 array('route' => 'home', 'roles' => array('guest', 'user')),
             ),
@@ -84,7 +85,17 @@ return array(
                     ),
                 ),
             ),
-       
+            'change-avatar' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/user/change-avatar',
+                    'defaults' => array(
+                        'controller' => 'User\Controller\User',
+                        'action'     => 'changeavatar',
+                    ),
+                ),
+            ),
+     
         ),
     ),
 );

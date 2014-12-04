@@ -123,6 +123,16 @@ class Module {
                     $form->setInputFilter(new Form\ChangeAdressFilter($options));
                     return $form;
                 },
+            
+              'zfcuser_change_avatar_form' => function ($sm) {
+              $options = $sm->get('zfcuser_module_options');
+              $form = new Form\ChangeAvatar(null, $sm->get('zfcuser_module_options'));
+              $form->setInputFilter(new Form\ChangeAvatarFilter($options));
+              return $form;
+
+             
+              },
+             
             ),
         );
     }

@@ -68,7 +68,7 @@ class User implements UserInterface, ProviderInterface
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $village;
-
+    
     /**
      * @var int
      */
