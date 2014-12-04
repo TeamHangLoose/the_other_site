@@ -19,7 +19,7 @@ class User extends \ZfcUser\Service\User {
         
         $currentUser = $this->getAuthService()->getIdentity();
 
-        $bcrypt = new Bcrypt;
+        $bcrypt = new \Zend\Crypt\Password\Bcrypt();
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
         
 

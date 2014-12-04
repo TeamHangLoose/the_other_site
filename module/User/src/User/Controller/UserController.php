@@ -2,30 +2,16 @@
 
 namespace User\Controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-use \User\Form\ChangeAdress;
-use User\Service\User as UserService;
 
-/**
- * Description of ExtUserController
- *
- * @author win7
- */
+;
+
 class UserController extends \ZfcUser\Controller\UserController {
 
     const ROUTE_CHANGEADRESS = 'change-adress';
 
     protected $changeAdressForm;
 
-    /**
-     * @var UserService
-     */
-    protected $userService;
 
     public function changeadressAction() {
 
@@ -83,17 +69,6 @@ class UserController extends \ZfcUser\Controller\UserController {
             $this->setChangeAdressForm($this->getServiceLocator()->get('zfcuser_change_adress_form'));
         }
         return $this->changeAdressForm;
-    }
-
-    public function getUserService() {
-        if (!$this->userService) {
-            $this->userService = $this->getServiceLocator()->get('zfcuser_user_service');
-        }
-        return $this->userService;
-    }
-
-    function setUserService(UserService $userService) {
-        $this->userService = $userService;
     }
 
 }
