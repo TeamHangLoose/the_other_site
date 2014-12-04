@@ -2,10 +2,6 @@
 
 namespace User\Controller;
 
-
-
-;
-
 class UserController extends \ZfcUser\Controller\UserController {
 
     const ROUTE_CHANGEADRESS = 'change-adress';
