@@ -110,6 +110,14 @@ class Module {
      public function getServiceConfig()
     {
         return array(
+              
+            'invokables' => array(
+                //'ZfcUser\Authentication\Adapter\Db' => 'ZfcUser\Authentication\Adapter\Db',
+                //'ZfcUser\Authentication\Storage\Db' => 'ZfcUser\Authentication\Storage\Db',
+                //'ZfcUser\Form\Login'                => 'ZfcUser\Form\Login',
+                'zfcuser_user_service'              => 'User\Service\User',
+                //'zfcuser_register_form_hydrator'    => 'Zend\Stdlib\Hydrator\ClassMethods',
+            ),
 
             'factories' => array(
                 'zfcuser_change_adress_form' => function ($sm) {

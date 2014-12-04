@@ -17,19 +17,23 @@ class UserController extends \ZfcUser\Controller\UserController {
 
     const ROUTE_CHANGEADRESS = 'change-adress';
     protected $changeAdressForm;
+        /**
+     * @var UserService
+     */
+    protected $userService;
 
     public function changeadressAction() {
 
-        // if the user isn't logged in, we can't change password
+        // if the user isn't logged in, we can't change Adress
         if (!$this->zfcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
         $form = $this->getChangeAdressForm();
-        $prg = $this->prg(static::ROUTE_CHANGEPASSWD);
+        $prg = $this->prg(static::ROUTE_CHANGEADRESS);
 
-        $fm = $this->flashMessenger()->setNamespace('change-password')->getMessages();
+        $fm = $this->flashMessenger()->setNamespace('change-adress')->getMessages();
         if (isset($fm[0])) {
             $status = $fm[0];
         } else {
@@ -54,7 +58,7 @@ class UserController extends \ZfcUser\Controller\UserController {
             );
         }
 
-        if (!$this->getUserService()->changePassword($form->getData())) {
+        if (!$this->getUserService()->changeA($form->getData())) {
             return array(
                 'status' => false,
                 'changeAdressForm' => $form,
@@ -78,4 +82,21 @@ class UserController extends \ZfcUser\Controller\UserController {
         return $this->changeAdressForm;
     }
     
-}
+
+     public function getUserService()
+    {
+        if (!$this->userService) {
+            $this->userService = $this->getServiceLocator()->get('zfcuser_user_service');
+        }
+        return $this->userService;
+    }
+
+    function setUserService(UserService $userService) {
+        $this->userService = $userService;
+    }
+
+
+   
+    
+    
+        }
