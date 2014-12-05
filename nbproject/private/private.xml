@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Album/the_other_site/module/User/src/User/Controller/GuestController.php</file>
-            <file>file:/C:/Album/the_other_site/module/User/src/User/Form/PasswordForgot.php</file>
+            <file>file:/C:/DATA/master/the_other_site/vendor/zf-commons/zfc-user/src/ZfcUser/Controller/UserController.php</file>
+            <file>file:/C:/DATA/master/the_other_site/vendor/zf-commons/zfc-user/src/ZfcUser/Service/User.php</file>
+            <file>file:/C:/DATA/master/the_other_site/vendor/zf-commons/zfc-user/src/ZfcUser/Entity/User.php</file>
         </group>
     </open-files>
 </project-private>
