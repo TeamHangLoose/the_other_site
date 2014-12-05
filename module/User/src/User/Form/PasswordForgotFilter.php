@@ -13,7 +13,6 @@ class PasswordForgotFilter extends InputFilter {
     public function __construct(AuthenticationOptionsInterface $options) {
         $identityParams = array(
             'name' => 'identity',
-            'required' => true,
             'validators' => array()
         );
 
@@ -23,16 +22,15 @@ class PasswordForgotFilter extends InputFilter {
             array_push($identityParams['validators'], $validators);
         }
 
-        $this->add($identityParams);
+        //$this->add($identityParams);
 
         $this->add(array(
             'name' => 'newPasswordToEmail',
-            'required' => true,
             'validators' => array(
                 array(
                     'name' => 'StringLength',
                     'options' => array(
-                        'min' => 6,
+                        
                     ),
                 ),
             ),

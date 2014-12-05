@@ -8,15 +8,33 @@ namespace User\Service;
  * and open the template in the editor.
  */
 
+use Zend\ServiceManager\ServiceManagerAwareInterface;
+use ZfcBase\EventManager\EventProvider;
+
 /**
  * Description of guest
  *
  * @author sommer
  */
-class Guest {
+class Guest extends EventProvider {
 
     public function sendForgotPasswordSmtp($param) {
+        
+        //echo $data['newPasswordToEmail'];
+       /*
+        * 
+        * @todo 
+        *  check if user exist.
+        *  if exist 
+        *        generate new password
+        *        put in db
+        *        send mail with new password            
+        *
+        * 
+        */
+       
 
+        /*
         $message = new \Zend\Mail\Message();
         $message->setBody('This is the body');
         $message->setFrom('myemail@mydomain.com');
@@ -38,6 +56,13 @@ class Guest {
 
         $transport = new \Zend\Mail\Transport\Smtp($smtpOptions);
         $transport->send($message);
+         * 
+         * 
+         */
+        
+        return true;
     }
+
+    
 
 }

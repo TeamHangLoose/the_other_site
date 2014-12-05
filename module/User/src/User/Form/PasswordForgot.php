@@ -41,7 +41,7 @@ class PasswordForgot extends ProvidesEventsForm{
                 'label' => 'Your Email adress',
             ),
             'attributes' => array(
-                'type' => 'password',
+                'type' => 'email',
             ),
         ));
 

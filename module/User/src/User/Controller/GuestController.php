@@ -23,6 +23,7 @@ use ZfcUser\Options\UserControllerOptionsInterface;
 class GuestController extends AbstractActionController {
 
     const ROUTE_PASSWORDFORGOT = 'password-forgot';
+    const ROUTE_LOGIN        = 'zfcuser/login';
 
     protected $passwordForgotForm;
     
@@ -53,8 +54,10 @@ class GuestController extends AbstractActionController {
         $fm = $this->flashMessenger()->setNamespace('password-forgot')->getMessages();
         if (isset($fm[0])) {
             $status = $fm[0];
+             
         } else {
             $status = null;
+           
         }
 
         if ($prg instanceof Response) {
@@ -74,7 +77,8 @@ class GuestController extends AbstractActionController {
                 'passwordForgotForm' => $form,
             );
         }
-
+        
+       
         if (!$this->getGuestService()->sendForgotPasswordSmtp($form->getData())) {
             return array(
                 'status' => false,
@@ -83,7 +87,7 @@ class GuestController extends AbstractActionController {
         }
 
         $this->flashMessenger()->setNamespace('password-forgot')->addMessage(true);
-        return $this->redirect()->toRoute(static::ROUTE_PASSWORDFORGOT);
+        return $this->redirect()->toRoute(static::ROUTE_LOGIN);
     }
     function getPasswordForgotForm() {
          if (!$this->passwordForgotForm) {
@@ -102,7 +106,7 @@ class GuestController extends AbstractActionController {
         if (!$this->guestService) {
             $this->guestService = $this->getServiceLocator()->get('extuser_guest_service');
         }
-        return $this->userService;
+        return $this->guestService;
     }
 
     public function setGuestService(UserService $guestService)
