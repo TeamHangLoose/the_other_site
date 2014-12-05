@@ -50,6 +50,7 @@ class GuestController extends AbstractActionController {
         $prg = $this->prg(static::ROUTE_PASSWORDFORGOT);
 
         $fm = $this->flashMessenger()->setNamespace('password-forgot')->getMessages();
+        
         if (isset($fm[0])) {
             $status = $fm[0];
              
@@ -85,7 +86,7 @@ class GuestController extends AbstractActionController {
         }
 
         $this->flashMessenger()->setNamespace('password-forgot')->addMessage(true);
-        return $this->redirect()->toRoute(static::ROUTE_LOGIN);
+        return $this->redirect()->toRoute(static::ROUTE_PASSWORDFORGOT);
     }
     function getPasswordForgotForm() {
          if (!$this->passwordForgotForm) {

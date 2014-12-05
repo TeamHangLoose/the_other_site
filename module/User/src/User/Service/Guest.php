@@ -20,7 +20,7 @@ class Guest extends EventProvider {
 
     public function sendForgotPasswordSmtp($param) {
         
-        //echo $data['newPasswordToEmail'];
+        echo $data['newPasswordToEmail'];
        /*
         * 
         * @todo 
