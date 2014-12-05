@@ -3,7 +3,9 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'User\Controller\User' => 'User\Controller\UserController'
+            'User\Controller\User' => 'User\Controller\UserController',
+            'User\Controller\Guest' => 'User\Controller\GuestController'
+            
         ),
     ),
     'doctrine' => array(
@@ -67,6 +69,9 @@ return array(
                 array('route' => 'zfcuser/changepassword', 'roles' => array('user')),
                 array('route' => 'change-adress', 'roles' => array('user')),
                 array('route' => 'change-avatar', 'roles' => array('user')),
+                array('route' => 'password-forgot', 'roles' => array('guest')),
+                
+                
                 // Below is the default index action used by the ZendSkeletonApplication
                 array('route' => 'home', 'roles' => array('guest', 'user')),
             ),
@@ -92,6 +97,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'User\Controller\User',
                         'action'     => 'changeavatar',
+                    ),
+                ),
+            ),
+             'password-forgot' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/guest/password-forgot',
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Guest',
+                        'action'     => 'passwordforgot',
                     ),
                 ),
             ),
