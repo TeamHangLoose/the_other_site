@@ -7,15 +7,18 @@ namespace User\Form;
  */
 use ZfcBase\Form\ProvidesEventsForm;
 use ZfcUser\Options\AuthenticationOptionsInterface;
+use Zend\Form\Form;
+use Zend\Form\Element;
+
+
 /**
  * Description of PasswordForgot
  *
  * @author sommer
  */
 class PasswordForgot extends ProvidesEventsForm{
-        /**
-     * @var AuthenticationOptionsInterface
-     */
+    
+    
     protected $authOptions;
 
     public function __construct($name, AuthenticationOptionsInterface $options) {
@@ -33,42 +36,12 @@ class PasswordForgot extends ProvidesEventsForm{
         ));
 
         $this->add(array(
-            'name' => 'credential',
+            'name' => 'newPasswordToEmail',
             'options' => array(
-                'label' => 'Current Password',
+                'label' => 'Your Email adress',
             ),
             'attributes' => array(
                 'type' => 'password',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'newStreet',
-            'options' => array(
-                'label' => 'New Street',
-            ),
-            'attributes' => array(
-                'type' => 'text',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'newPlz',
-            'options' => array(
-                'label' => 'New Plz',
-            ),
-            'attributes' => array(
-                'type' => 'text',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'newVillage',
-            'options' => array(
-                'label' => 'New Village',
-            ),
-            'attributes' => array(
-                'type' => 'text',
             ),
         ));
 

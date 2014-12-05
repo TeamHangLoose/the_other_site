@@ -6,7 +6,11 @@ use Zend\InputFilter\InputFilter;
 use ZfcUser\Options\AuthenticationOptionsInterface;
 
 class PasswordForgotFilter extends InputFilter {
-public function __construct(AuthenticationOptionsInterface $options) {
+
+    protected $emailValidator;
+
+    
+    public function __construct(AuthenticationOptionsInterface $options) {
         $identityParams = array(
             'name' => 'identity',
             'required' => true,
@@ -22,7 +26,7 @@ public function __construct(AuthenticationOptionsInterface $options) {
         $this->add($identityParams);
 
         $this->add(array(
-            'name' => 'credential',
+            'name' => 'newPasswordToEmail',
             'required' => true,
             'validators' => array(
                 array(
@@ -37,50 +41,8 @@ public function __construct(AuthenticationOptionsInterface $options) {
             ),
         ));
 
-        $this->add(array(
-            'name' => 'newStreet',
-            'required' => true,
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'min' => 3,
-                        'max' => 255,
-                    ),
-                ),
-            ),
-            'filters' => array(
-                array('name' => 'StringTrim'),
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'newPlz',
-            'required' => true,
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'min' => 4,
-                        'max' => 6,
-                    ),
-                ),
-            ),
-        ));
-
-
-        $this->add(array(
-            'name' => 'newVillage',
-            'required' => true,
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'max' => 50,
-                    ),
-                ),
-            ),
-        ));
+ 
+    
     }
 
 }

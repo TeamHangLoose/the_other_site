@@ -90,9 +90,7 @@ class Module {
 
 
         $zfcServiceEvents = $e->getApplication()->getServiceManager()->get('zfcuser_user_service')->getEventManager();
-
         $orm = $e->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
-
         $zfcServiceEvents->attach('register', function($e) use ($orm) {
             //standard Role for all new Users -> user
             $userRole = $orm->getRepository('User\Entity\Role')->find(2);

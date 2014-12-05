@@ -36,20 +36,21 @@ class GuestController extends AbstractActionController {
      */
     protected $options;
 
-
-
     public function passwordforgotAction() {
 
+        /*
         // if the user isn't logged in, we can't change Adress
         if (!$this->zfcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
+         * /
+         */
 
         $form = $this->getPasswordForgotForm();
         $prg = $this->prg(static::ROUTE_PASSWORDFORGOT);
 
-        $fm = $this->flashMessenger()->setNamespace('change-adress')->getMessages();
+        $fm = $this->flashMessenger()->setNamespace('password-forgot')->getMessages();
         if (isset($fm[0])) {
             $status = $fm[0];
         } else {
@@ -86,7 +87,7 @@ class GuestController extends AbstractActionController {
     }
     function getPasswordForgotForm() {
          if (!$this->passwordForgotForm) {
-            $this->setChangeAvatarForm($this->getServiceLocator()->get('zfcuser_password_forgot_form'));
+            $this->setPasswordForgotForm($this->getServiceLocator()->get('zfcuser_password_forgot_form'));
         }
         return $this->passwordForgotForm;
     }
