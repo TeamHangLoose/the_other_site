@@ -39,14 +39,12 @@ class GuestController extends AbstractActionController {
 
     public function passwordforgotAction() {
 
-        /*
-        // if the user isn't logged in, we can't change Adress
-        if (!$this->zfcUserAuthentication()->hasIdentity()) {
+      
+        if ($this->zfcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
-         * /
-         */
+         
 
         $form = $this->getPasswordForgotForm();
         $prg = $this->prg(static::ROUTE_PASSWORDFORGOT);

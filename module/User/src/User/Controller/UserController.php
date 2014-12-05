@@ -109,6 +109,9 @@ class UserController extends \ZfcUser\Controller\UserController {
         return $this->redirect()->toRoute(static::ROUTE_CHANGEAVATAR);
     }
 
+    
+ 
+    
     function setChangeAdressForm($changeAdressForm) {
         $this->changeAdressForm = $changeAdressForm;
     }
