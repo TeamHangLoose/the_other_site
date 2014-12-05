@@ -13,10 +13,12 @@ use ZfcUser\Options\AuthenticationOptionsInterface;
  * @author sommer
  */
 class PasswordForgot extends ProvidesEventsForm{
-     protected $authOptions;
+        /**
+     * @var AuthenticationOptionsInterface
+     */
+    protected $authOptions;
 
-    public function __construct($name, AuthenticationOptionsInterface $options)
-    {
+    public function __construct($name, AuthenticationOptionsInterface $options) {
         $this->setAuthenticationOptions($options);
         parent::__construct($name);
 
@@ -26,46 +28,56 @@ class PasswordForgot extends ProvidesEventsForm{
                 'label' => '',
             ),
             'attributes' => array(
-                'type' => 'text'
+                'type' => 'hidden'
             ),
         ));
 
-        $emailElement = $this->get('identity');
-        $label = $emailElement->getLabel('label');
-        // @TODO: make translation-friendly
-        foreach ($this->getAuthenticationOptions()->getAuthIdentityFields() as $mode) {
-            $label = (!empty($label) ? $label . ' or ' : '') . ucfirst($mode);
-        }
-        $emailElement->setLabel($label);
-        //
         $this->add(array(
             'name' => 'credential',
             'options' => array(
-                'label' => 'Password',
+                'label' => 'Current Password',
             ),
             'attributes' => array(
                 'type' => 'password',
             ),
         ));
 
-        // @todo: Fix this
-        // 1) getValidator() is a protected method
-        // 2) i don't believe the login form is actually being validated by the login action
-        // (but keep in mind we don't want to show invalid username vs invalid password or
-        // anything like that, it should just say "login failed" without any additional info)
-        //$csrf = new Element\Csrf('csrf');
-        //$csrf->getValidator()->setTimeout($options->getLoginFormTimeout());
-        //$this->add($csrf);
+        $this->add(array(
+            'name' => 'newStreet',
+            'options' => array(
+                'label' => 'New Street',
+            ),
+            'attributes' => array(
+                'type' => 'text',
+            ),
+        ));
 
-        $submitElement = new Element\Button('submit');
-        $submitElement
-            ->setLabel('Sign In')
-            ->setAttributes(array(
-                'type'  => 'submit',
-            ));
+        $this->add(array(
+            'name' => 'newPlz',
+            'options' => array(
+                'label' => 'New Plz',
+            ),
+            'attributes' => array(
+                'type' => 'text',
+            ),
+        ));
 
-        $this->add($submitElement, array(
-            'priority' => -100,
+        $this->add(array(
+            'name' => 'newVillage',
+            'options' => array(
+                'label' => 'New Village',
+            ),
+            'attributes' => array(
+                'type' => 'text',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'submit',
+            'attributes' => array(
+                'value' => 'Submit',
+                'type' => 'submit'
+            ),
         ));
 
         $this->getEventManager()->trigger('init', $this);
@@ -77,8 +89,7 @@ class PasswordForgot extends ProvidesEventsForm{
      * @param AuthenticationOptionsInterface $authOptions
      * @return Login
      */
-    public function setAuthenticationOptions(AuthenticationOptionsInterface $authOptions)
-    {
+    public function setAuthenticationOptions(AuthenticationOptionsInterface $authOptions) {
         $this->authOptions = $authOptions;
         return $this;
     }
@@ -88,9 +99,8 @@ class PasswordForgot extends ProvidesEventsForm{
      *
      * @return AuthenticationOptionsInterface
      */
-    public function getAuthenticationOptions()
-    {
+    public function getAuthenticationOptions() {
         return $this->authOptions;
     }
-    //put your code here
+
 }

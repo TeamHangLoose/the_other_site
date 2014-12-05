@@ -114,6 +114,7 @@ class Module {
                 //'ZfcUser\Authentication\Storage\Db' => 'ZfcUser\Authentication\Storage\Db',
                 //'ZfcUser\Form\Login'                => 'ZfcUser\Form\Login',
                 'zfcuser_user_service' => 'User\Service\User',
+                'extuser_guest_service' => 'User\Service\Guest',  
             //'zfcuser_register_form_hydrator'    => 'Zend\Stdlib\Hydrator\ClassMethods',
             ),
             'factories' => array(
@@ -123,16 +124,18 @@ class Module {
                     $form->setInputFilter(new Form\ChangeAdressFilter($options));
                     return $form;
                 },
-            
-              'zfcuser_change_avatar_form' => function ($sm) {
-              $options = $sm->get('zfcuser_module_options');
-              $form = new Form\ChangeAvatar(null, $sm->get('zfcuser_module_options'));
-              $form->setInputFilter(new Form\ChangeAvatarFilter($options));
-              return $form;
-
-             
-              },
-             
+                'zfcuser_change_avatar_form' => function ($sm) {
+                    $options = $sm->get('zfcuser_module_options');
+                    $form = new Form\ChangeAvatar(null, $sm->get('zfcuser_module_options'));
+                    $form->setInputFilter(new Form\ChangeAvatarFilter($options));
+                    return $form;
+                },
+                'zfcuser_password_forgot_form' => function ($sm) {
+                    $options = $sm->get('zfcuser_module_options');
+                    $form = new Form\PasswordForgot(null, $sm->get('zfcuser_module_options'));
+                    $form->setInputFilter(new Form\PasswordForgotFilter($options));
+                    return $form;
+                },
             ),
         );
     }
