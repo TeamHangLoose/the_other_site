@@ -8,13 +8,10 @@ namespace User\Controller;
  * and open the template in the editor.
  */
 
-use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Stdlib\ResponseInterface as Response;
-use Zend\Stdlib\Parameters;
-use Zend\View\Model\ViewModel;
 use ZfcUser\Service\User as UserService;
 use ZfcUser\Options\UserControllerOptionsInterface;
+
 /**
  * Description of GuestController
  *
@@ -23,73 +20,66 @@ use ZfcUser\Options\UserControllerOptionsInterface;
 class GuestController extends AbstractActionController {
 
     const ROUTE_PASSWORDFORGOT = 'password-forgot';
-    const ROUTE_LOGIN        = 'zfcuser/login';
+    const ROUTE_LOGIN = 'zfcuser/login';
 
     protected $passwordForgotForm;
-    
-    
-        /**
+
+    /**
      * @var UserService
      */
     protected $guestService;
-        /**
+
+    /**
      * @var GuestControllerOptionsInterface
      */
     protected $options;
 
     public function passwordforgotAction() {
-
-      
         if ($this->zfcUserAuthentication()->hasIdentity()) {
-            // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
-         
 
+        $request = $this->getRequest();
         $form = $this->getPasswordForgotForm();
-        $prg = $this->prg(static::ROUTE_PASSWORDFORGOT);
 
-        $fm = $this->flashMessenger()->setNamespace('password-forgot')->getMessages();
-        
-        if (isset($fm[0])) {
-            $status = $fm[0];
-             
+        if ($this->getOptions()->getUseRedirectParameterIfPresent() && $request->getQuery()->get('redirect')) {
+            $redirect = $request->getQuery()->get('redirect');
         } else {
-            $status = null;
-           
+            $redirect = false;
         }
+     
+          if (!$request->isPost()) {
+          return array(
+          'passwordForgotForm' => $form,
+          'redirect'  => $redirect,
+          'enableRegistration' => $this->getOptions()->getEnableRegistration(),
+          );
+          } 
 
-        if ($prg instanceof Response) {
-            return $prg;
-        } elseif ($prg === false) {
-            return array(
-                'status' => $status,
-                'passwordForgotForm' => $form,
-            );
+        $form->setData($request->getPost());
+
+
+        $r = '';
+        foreach ($request as $key => $value) {
+            $r = $r . $key . '  ' . $value . '<br>';
         }
+        echo $r;
 
-        $form->setData($prg);
+        /*
+          if (!$form->isValid()) {
+          $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
+          return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_PASSWORDFORGOT).($redirect ? '?redirect='. rawurlencode($redirect) : ''));
+          }
+         */
 
-        if (!$form->isValid()) {
-            return array(
-                'status' => false,
-                'passwordForgotForm' => $form,
-            );
-        }
-        
-       
-        if (!$this->getGuestService()->sendForgotPasswordSmtp($form->getData())) {
-            return array(
-                'status' => false,
-                'passwordForgotForm' => $form,
-            );
-        }
-
-        $this->flashMessenger()->setNamespace('password-forgot')->addMessage(true);
-        return $this->redirect()->toRoute(static::ROUTE_LOGIN);
+        // clear adapters
+        //$this->zfcUserAuthentication()->getAuthAdapter()->resetAdapters();
+        //$this->zfcUserAuthentication()->getAuthService()->clearIdentity();
+        // return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
     }
+
     function getPasswordForgotForm() {
-         if (!$this->passwordForgotForm) {
+        if (!$this->passwordForgotForm) {
             $this->setPasswordForgotForm($this->getServiceLocator()->get('zfcuser_password_forgot_form'));
         }
         return $this->passwordForgotForm;
@@ -99,29 +89,25 @@ class GuestController extends AbstractActionController {
         $this->passwordForgotForm = $passwordForgotForm;
     }
 
-    
-        public function getGuestService()
-    {
+    public function getGuestService() {
         if (!$this->guestService) {
             $this->guestService = $this->getServiceLocator()->get('extuser_guest_service');
         }
         return $this->guestService;
     }
 
-    public function setGuestService(UserService $guestService)
-    {
+    public function setGuestService(UserService $guestService) {
         $this->guestService = $guestService;
         return $this;
     }
- 
+
     /**
      * set options
      *
      * @param GuetControllerOptionsInterface $options
      * @return GuestController
      */
-    public function setOptions(UserControllerOptionsInterface $options)
-    {
+    public function setOptions(UserControllerOptionsInterface $options) {
         $this->options = $options;
         return $this;
     }
@@ -131,8 +117,7 @@ class GuestController extends AbstractActionController {
      *
      * @return UserControllerOptionsInterface
      */
-    public function getOptions()
-    {
+    public function getOptions() {
         if (!$this->options instanceof UserControllerOptionsInterface) {
             $this->setOptions($this->getServiceLocator()->get('zfcuser_module_options'));
         }
