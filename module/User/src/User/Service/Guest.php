@@ -22,62 +22,15 @@ class Guest extends \ZfcUser\Service\User {
 
     public function sendForgotPasswordSmtp($data) {
 
-        // echo $param['newPasswordToEmail'];
-
-        /*
-         * 
-         * @todo 
-         *  check if user exist.
-         *  if exist 
-         *        generate new password
-         *        put in db
-         *        send mail with new password            
-         *
-         * 
-         */
-        $class = $this->getOptions()->getUserEntityClass();
-        $user = new $class;
-        $form = $this->getRegisterForm();
-        $form->setHydrator($this->getFormHydrator());
-        $form->bind($user);
-        $form->setData($data);
-        if (!$form->isValid()) {
-            return false;
+        
+        $r='';
+        foreach ($data as $key => $value){
+            $r = $r.$key.'   '.$value.'<br>';    
         }
-        if ($this->zfcUserAuthentication()->hasIdentity()) {
-            return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
-        }
-
-        $request = $this->getRequest();
-        $form    = $this->getLoginForm();
-
-        if ($this->getOptions()->getUseRedirectParameterIfPresent() && $request->getQuery()->get('redirect')) {
-            $redirect = $request->getQuery()->get('redirect');
-        } else {
-            $redirect = false;
-        }
-
-        if (!$request->isPost()) {
-            return array(
-                'loginForm' => $form,
-                'redirect'  => $redirect,
-                'enableRegistration' => $this->getOptions()->getEnableRegistration(),
-            );
-        }
-
-        $form->setData($request->getPost());
-
-        if (!$form->isValid()) {
-            $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
-            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN).($redirect ? '?redirect='. rawurlencode($redirect) : ''));
-        }
-
-        // clear adapters
-        $this->zfcUserAuthentication()->getAuthAdapter()->resetAdapters();
-        $this->zfcUserAuthentication()->getAuthService()->clearIdentity();
-
-        return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
-
+        echo $r;
+        
+        
+        
         /*
           $message = new \Zend\Mail\Message();
           $message->setBody('This is the body');
@@ -105,25 +58,6 @@ class Guest extends \ZfcUser\Service\User {
          */
 
         return true;
-    }
-
-    /**
-     * @return Form
-     */
-    public function getPasswordForgotForm() {
-        if (null === $this->passwordForgotForm) {
-            $this->passwordForgotForm = $this->getServiceManager()->get('zfcuser_password_forgot_form');
-        }
-        return $this->passwordForgotForm;
-    }
-
-    /**
-     * @param Form $changePasswordForm
-     * @return User
-     */
-    public function setPasswordForgotForm(Form $passwordForgotForm) {
-        $this->passwordForgotForm = $passwordForgotForm;
-        return $this;
     }
 
 }

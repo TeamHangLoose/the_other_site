@@ -35,47 +35,53 @@ class GuestController extends AbstractActionController {
     protected $options;
 
     public function passwordforgotAction() {
+
         if ($this->zfcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
-
-        $request = $this->getRequest();
+       
+        
         $form = $this->getPasswordForgotForm();
+        $prg = $this->prg(static::ROUTE_PASSWORDFORGOT);
 
-        if ($this->getOptions()->getUseRedirectParameterIfPresent() && $request->getQuery()->get('redirect')) {
-            $redirect = $request->getQuery()->get('redirect');
+        $fm = $this->flashMessenger()->setNamespace('forgot-password')->getMessages();
+        if (isset($fm[0])) {
+            $status = $fm[0];
         } else {
-            $redirect = false;
+            $status = null;
         }
+
+        if ($prg instanceof Response) {
+            return $prg;
+        } elseif ($prg === false) {
+            return array(
+                'status' => $status,
+                'passwordForgotForm' => $form,
+            );
+        }
+
+        $form->setData($prg);
+
+        if (!$form->isValid()) {
+            return array(
+                'status' => false,
+                'passwordForgotForm' => $form,
+            );
+        }
+      
+        
+           if (!$this->getGuestService()->sendForgotPasswordSmtp($form->getData())) {
+            return array(
+                'status' => false,
+                'passwordForgotForm' => $form,
+            );
+        }
+
      
-          if (!$request->isPost()) {
-          return array(
-          'passwordForgotForm' => $form,
-          'redirect'  => $redirect,
-          'enableRegistration' => $this->getOptions()->getEnableRegistration(),
-          );
-          } 
+        $this->flashMessenger()->setNamespace('forgot-password')->addMessage(true);
+        //return $this->redirect()->toRoute(static::ROUTE_PASSWORDFORGOT);
+        return true;
 
-        $form->setData($request->getPost());
-
-
-        $r = '';
-        foreach ($request as $key => $value) {
-            $r = $r . $key . '  ' . $value . '<br>';
-        }
-        echo $r;
-
-        /*
-          if (!$form->isValid()) {
-          $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
-          return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_PASSWORDFORGOT).($redirect ? '?redirect='. rawurlencode($redirect) : ''));
-          }
-         */
-
-        // clear adapters
-        //$this->zfcUserAuthentication()->getAuthAdapter()->resetAdapters();
-        //$this->zfcUserAuthentication()->getAuthService()->clearIdentity();
-        // return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
     }
 
     function getPasswordForgotForm() {

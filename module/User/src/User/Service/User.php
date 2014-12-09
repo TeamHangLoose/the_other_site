@@ -22,7 +22,6 @@ class User extends \ZfcUser\Service\User {
         $bcrypt = new \Zend\Crypt\Password\Bcrypt();
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
 
-
         if (!$bcrypt->verify($data['credential'], $currentUser->getPassword())) {
             return false;
         }
@@ -34,8 +33,6 @@ class User extends \ZfcUser\Service\User {
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $currentUser));
         $this->getUserMapper()->update($currentUser);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('user' => $currentUser));
-
-
 
         return true;
     }
@@ -97,6 +94,7 @@ class User extends \ZfcUser\Service\User {
         }
     }
 
+    /*
     public function sendForgotPasswordSmtp($param) {
 
         $message = new \Zend\Mail\Message();
@@ -120,6 +118,6 @@ class User extends \ZfcUser\Service\User {
 
         $transport = new \Zend\Mail\Transport\Smtp($smtpOptions);
         $transport->send($message);
-    }
+    }*/
 
 }
